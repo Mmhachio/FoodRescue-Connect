@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Page</title>
+    <style>
+        h1.headerh1 {
+            text-align: center;
+            background-color: #333;
+            color: #fff;
+
+            margin: 0;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 20px;
+        }
+
+        li {
+            list-style: none;
+            background-color: transparent;
+            padding: 20px;
+            font-size: 30px;
+            margin: 20px 0;
+        }
+
+        form {
+            margin-top: 10px;
+        }
+
+        button {
+            background-color: #333;
+            color: #fff;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+
+        a.headeradmin {
+          text-decoration-style: none;
+            text-decoration: none;
+            color: #fff;
+
+            border-radius: 5px;
+        }
+
+        .user-navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .user-navbar ul {
+            display: flex;
+            align-items: center;
+        }
+
+        .user-navbar li {
+            margin-left: 20px;
+        }
+
+        .adminfooditem,
+        .admininfo {
+            margin-top: 80px;
+            text-align: center;
+        }
+
+        .adminfooditem img,
+        .admininfo img {
+            height: 250px;
+            width: 250px;
+        }
+    </style>
+
+    <script src="/js/numbercheck.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+</head>
+<body class="adminbody admin-page">
+    <h1 class="headerh1">
+        <nav class="user-navbar food-page">
+            <div>
+                <ul>
+                    <li><a class="headeradmin"href="">Admin</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <ul>
+                    <li><a class="headeradmin"href="/fooditemsadmin">Food items</a></li>
+                    <li><a class="headeradmin"href="/checkinfoadmin">All Info</a></li>
+                    <li><a class="headeradmin"href="/adminlogout" onclick="return confirm('Are you sure you want to logout?')">Logout</a></li>
+                </ul>
+            </div>
+        </nav>
+    </h1>
+
+    <h2>Admin Information</h2>
+    <div class="adminfooditem">
+        <a href="/fooditemsadmin"><img src="images/food.jpg" alt=""></a>
+        <p>CHECK FOOD ITEMS</p>
+    </div>
+
+    <div class="admininfo">
+        <a href="/checkinfoadmin"><img src="images/adminpic.jpg" alt=""></a>
+        <p>CHECK ALL USER INFO</p>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

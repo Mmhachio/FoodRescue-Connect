@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" class="food-page">
+<!-- <link rel="stylesheet" href="css/style.css"> -->
+
+<head>
+  <meta charset="utf-8">
+  <title>My page</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+
+      background-image: url(../images/gracian.jpeg);
+    }
+
+    h1 {
+      text-align: center;
+      background-color: #333;
+      color: #fff;
+      padding: 20px;
+      margin: 0;
+    }
+
+    /* List styles */
+    ul {
+      list-style-type: none;
+      padding: 0;
+      margin: 20px;
+
+
+    }
+
+    li {
+      list-style: none;
+background-color: rgba(255, 255, 255, 0.5);
+      padding: 20px;
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+      margin: 20px 0;
+    }
+
+    /* Form styles */
+    form {
+      margin-top: 10px;
+    }
+
+    button {
+      background-color: #333;
+      color: #fff;
+      border: none;
+      padding: 5px 10px;
+      cursor: pointer;
+    }
+
+    /* Return link styles */
+    a {
+      text-decoration: none;
+      color: #fff;
+      border-radius: 5px;
+    }
+
+    /* CSS for horizontal form layout */
+    form {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+    }
+
+    .form-group {
+      flex: 1;
+      margin-right: 10px;
+    }
+
+    label {
+      display: block;
+    }
+
+    input[type="text"],
+    input[type="number"],
+    input[type="date"] {
+      width: 100%;
+    }
+
+    button {
+      flex: 0 0 auto;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+
+<body class="food-page sub_page" style="margin:0;">
+  <h1>
+    <nav class="user-navbar food-page" style="display:flex;justify-content: space-between;">
+
+      <div>
+        <ul>
+          <form action="/checkmyfooditems" class="custom-form" method="POST">
+            <input type="hidden" name="userName" value="<%= user.username %>">
+            <input type="submit" value="CHECK ADDED ITEMS">
+          </form>
+
+
+        </ul>
+      </div>
+      <div>
+
+        <a href="/userpage">MY PAGE</a>
+
+      </div>
+
+      <div>
+        <a class="nav-link" href="/userlogout" onclick="return confirm('Are you sure you want to logout?')">Logout</a>
+      </div>
+
+
+    </nav>
+  </h1>
+
+<li>
+
+
+  <div class="form-group add-items food-page">
+    <div >
+    <h3>Add Food Item</h3>
+    </div>
+
+    <form action="/addfood" method="POST" enctype="multipart/form-data">
+      <div class='form-group'>
+        <input type="hidden" name="userName" value="<%= user.username %>">
+        <label for="preFilledInput">Address</label>
+        <input type="text" id="preFilledInput" name="userAddress" value="<%= user.address %>">
+      </div>
+      <div class="form-group">
+
+        <label for="preFilledInput">Phone No</label>
+        <input type="text" id="preFilledInput" name="userPhonenumber" value="<%=user.phoneno %>">
+      </div>
+
+
+      <!-- Food Name Input -->
+      <div class="form-group">
+        <label for="foodName">Food Name:</label>
+        <input type="text" id="foodName" name="foodName" required>
+      </div>
+
+      <!-- Quantity Input with Buttons -->
+      <div class="form-group">
+        <label for="quantity">Quantity:</label>
+        <input type="number" id="quantity" name="quantity" value="1" min="1" required>
+        <button type="button" id="decrement">-</button>
+        <button type="button" id="increment">+</button>
+      </div>
+
+      <!-- Expiry Date Input -->
+      <div class="form-group">
+        <label for="expiryDate">Expiry Date:</label>
+        <input type="date" id="expiryDate" name="expiryDate" required>
+      </div>
+      <!-- Description Input -->
+      <div class="form-group">
+        <label for="description">Description:</label>
+        <textarea id="description" name="description" rows="4" cols="50" required></textarea>
+      </div>
+
+      <div class="form-group">
+        <label for="foodImage">Food Image:</label>
+        <input type="file" name="foodImage" accept="image/*">
+
+      </div>
+      <input type="hidden" name="status" value="Not booked">
+      <!-- Submit Button -->
+      <input type="submit" value="Add Food Item">
+    </form>
+  </div>
+
+</li>
+
+  <script>
+    // JavaScript to handle quantity buttons
+    const quantityInput = document.getElementById("quantity");
+    const incrementButton = document.getElementById("increment");
+    const decrementButton = document.getElementById("decrement");
+
+    incrementButton.addEventListener("click", () => {
+      quantityInput.value = parseInt(quantityInput.value) + 1;
+    });
+
+    decrementButton.addEventListener("click", () => {
+      const currentQuantity = parseInt(quantityInput.value);
+      if (currentQuantity > 1) {
+        quantityInput.value = currentQuantity - 1;
+      }
+    });
+    // Get the date input element
+    const expiryDateInput = document.getElementById("expiryDate");
+
+    // Get the current date
+    const currentDate = new Date();
+
+    // Set the minimum date attribute to the current date in the format "YYYY-MM-DD"
+    const minDate = currentDate.toISOString().split("T")[0];
+    expiryDateInput.setAttribute("min", minDate);
+
+    // Add an event listener to the input to validate the date
+    expiryDateInput.addEventListener("input", function() {
+      const selectedDate = new Date(expiryDateInput.value);
+      if (selectedDate < currentDate) {
+        expiryDateInput.setCustomValidity("Selected date has already passed.");
+      } else {
+        expiryDateInput.setCustomValidity("");
+      }
+    });
+  </script>
+</body>
+
+</html>

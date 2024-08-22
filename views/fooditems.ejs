@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food Items</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        h1 {
+            text-align: center;
+            background-color: #333;
+            color: #fff;
+            padding: 20px;
+            margin: 0;
+        }
+
+        /* Style for table */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px; /* Add margin top to create space between header and table */
+        }
+
+        /* Style for table headers (th) */
+        th {
+            background-color: #f2f2f2;
+            text-align: left;
+            padding: 10px;
+        }
+
+        /* Style for table rows (even) */
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        /* Style for table rows (odd) */
+        tr:nth-child(odd) {
+            background-color: #ffffff;
+        }
+
+        /* Style for table cells (td) */
+        td {
+            padding: 10px;
+            border: 1px solid #dddddd;
+        }
+
+        /* Style for the "Return" link */
+        a {
+            text-decoration: none;
+            color: #fff;
+            background-color: transparent;
+            border-radius: 5px;
+            padding: 5px 10px;
+            cursor: pointer;
+            margin-right: 20px; /* Add margin to the right of the link */
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>
+        <div class="navbar-left" style="display:flex;justify-content: space-between;">
+            <div>
+                Food Items
+            </div>
+            <div>
+                <a href="/admin">Return</a>
+            </div>
+        </div>
+    </h1>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Food Name</th>
+                <th>Quantity</th>
+                <th>Expiry Date</th>
+                <th>User Name</th>
+                <th>User Phone Number</th>
+                <th>User Address</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Loop through food items and generate table rows -->
+            <% foodItems.forEach(function(foodItem) { %>
+                <tr>
+                    <td>
+                        <%= foodItem.Foodname %>
+                    </td>
+                    <td>
+                        <%= foodItem.quantity %>
+                    </td>
+                    <td>
+                        <%= foodItem.expiryDate ? foodItem.expiryDate.toDateString() : 'N/A' %>
+                    </td>
+                    <td>
+                        <%= foodItem.userName %>
+                    </td>
+                    <td>
+                        <%= foodItem.userPhoneNo %>
+                    </td>
+                    <td>
+                        <%= foodItem.userAddress %>
+                    </td>
+                    <td>
+                        <!-- Create a form to delete the food item -->
+                        <form method="POST" action="/deletefood">
+                            <input type="hidden" name="foodItemId" value="<%= foodItem._id %>">
+                            <button type="submit">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                <% }); %>
+        </tbody>
+    </table>
+
+
+</body>
+
+</html>

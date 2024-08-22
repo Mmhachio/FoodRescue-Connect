@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>NGO Page</title>
+  <style>
+    /* Reset some default styles */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-image: url(../images/gracian.jpeg);
+    }
+
+    /* Header styles */
+    h1 {
+      text-align: center;
+      background-color: #333;
+      color: #fff;
+      padding: 20px;
+      margin: 0;
+    }
+
+    /* List styles */
+    ul {
+      list-style-type: none;
+      padding: 0;
+      margin: 20px;
+    }
+
+    li {
+      display: flex;
+      justify-content:space-around;
+      align-items: center; /* Vertically align items */
+      background-color: rgba(255, 255, 255, 0.5);
+      padding: 20px;
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+      margin: 20px;
+      position: relative; /* For relative positioning */
+    }
+
+    /* Style for booked items */
+    li.booked {
+      background-color: #f7f7f7; /* Change background color for booked items */
+    }
+
+    /* Style for the "Booked" text */
+    .booked-text {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background-color: rgba(0, 0, 0, 0.5);
+      color: #fff;
+      padding: 5px 10px;
+      border-radius: 5px;
+    }
+
+    /* Image styles */
+    img {
+      width: 250px; /* Adjust the width as needed */
+      height: 175px;
+       /* Add some space between the image and text */
+    }
+    a {
+      text-decoration: none;
+      color: #fff;
+      background-color: transparent;
+      border-radius: 5px;
+    }
+
+  </style>
+</head>
+<body>
+  <h1>
+  <div class="navbar-left" style="display:flex;justify-content: space-between;">
+    <div>
+      Welcome, <%= ngo.ngoname %>!
+    </div>
+
+    <div>
+    <a href="/ngologout" onclick="return confirm('Are you sure you want to logout?')">Logout</a>
+    </div>
+
+  </div>
+  </h1>
+
+  <ul>
+  <% foodItems.forEach(function(foodItem) { %>
+    <li <%= foodItem.status === "Booked" ? 'class="booked"' : '' %>>
+      <div>
+        <strong>Food Name:</strong> <%= foodItem.Foodname %><br>
+        <strong>Quantity:</strong> <%= foodItem.quantity %><br>
+        <strong>Expiry Date:</strong> <%= foodItem.expiryDate ? foodItem.expiryDate.toDateString() : 'N/A' %><br>
+        <strong>User Name:</strong> <%= foodItem.userName %><br>
+        <strong>User Phone Number:</strong> <%= foodItem.userPhoneNo %><br>
+        <strong>User Address:</strong> <%= foodItem.userAddress %><br>
+        <strong>Status:</strong> <%= foodItem.status %><br>
+        <!-- Inside the loop for displaying food items -->
+        <strong>Description:</strong> <%= foodItem.description %><br>
+        <% if (foodItem.status === "Not booked") { %>
+          <form action="/bookfood" method="post">
+            <input type="hidden" name="foodItemId" value="<%= foodItem._id %>">
+            <input type="hidden" name="status" value="<%= foodItem.status %>">
+            <input type="submit" value="Book">
+          </form>
+        <% } else { %>
+          <div class="booked-text">Booked</div>
+        <% } %>
+      </div>
+      <img src="<%= foodItem.imageUrl %>" alt="<%= foodItem.Foodname %> Image" onerror="imageError(this)">
+    </li>
+  <% }); %>
+  </ul>
+  <script>
+    function imageError(img) {
+      console.error("Image failed to load:", img.src);
+      img.onerror = null;
+      img.src = "/path/to/default/image.jpg";
+    }
+  </script>
+</body>
+</html>

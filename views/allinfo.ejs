@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All User Info</title>
+    <style>
+        /* Reset some default styles */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Header styles */
+        .admin-header {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 20px 0;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .admin-header h1 {
+            margin: 0;
+        }
+
+        .button1 {
+            background-color: grey;
+            color: #fff;
+            text-decoration: none;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            padding: 10px 20px;
+            margin: 0;
+        }
+
+        .button1:hover {
+            background-color: darkgrey;
+        }
+
+        /* Main content container */
+        .admin-container {
+            display: flex;
+            justify-content: space-between;
+            margin: 20px;
+        }
+
+        /* User Information styles */
+        .user-info,
+        .ngo-info {
+            flex: 1;
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .user-info h2,
+        .ngo-info h2 {
+            font-size: 24px;
+        }
+
+        .user-info ul,
+        .ngo-info ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .user-info li,
+        .ngo-info li {
+            margin-bottom: 10px;
+        }
+
+        .user-info form,
+        .ngo-info form {
+            margin-top: 10px;
+        }
+
+        .user-info button,
+        .ngo-info button {
+            background-color: #333;
+            color: #fff;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-header">
+        <h1>All User/NGO Information</h1>
+        <a href="/admin" class="button1">Return to Admin Page</a>
+    </div>
+
+    <div class="admin-container">
+        <div class="user-info">
+            <h2>User Information:</h2>
+            <ul>
+                <% users.forEach(function(user) { %>
+                    <li><strong>Email:</strong> <%= user.email %></li>
+                    <li><strong>Username:</strong> <%= user.username %></li>
+                    <li><strong>Address:</strong> <%= user.address %></li>
+                    <li><strong>Phone Number:</strong> <%= user.phoneno %></li>
+                    <li>
+                        <form action="/removeuser" method="POST">
+                            <input type="hidden" name="userId" value="<%= user._id %>">
+                            <button type="submit">Remove</button>
+                        </form>
+                    </li>
+                <% }); %>
+            </ul>
+        </div>
+
+        <div class="ngo-info">
+            <h2>NGO Information:</h2>
+            <ul>
+                <% ngos.forEach(function(ngo) { %>
+                    <li><strong>Email:</strong> <%= ngo.email %></li>
+                    <li><strong>NGO Name:</strong> <%= ngo.ngoname %></li>
+                    <li><strong>Address:</strong> <%= ngo.address %></li>
+                    <li><strong>Phone Number:</strong> <%= ngo.phoneno %></li>
+                    <li>
+                        <form action="/removengo" method="POST">
+                            <input type="hidden" name="ngoId" value="<%= ngo._id %>">
+                            <button type="submit">Remove</button>
+                        </form>
+                    </li>
+                <% }); %>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
